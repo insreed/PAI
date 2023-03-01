@@ -1,0 +1,12 @@
+    1  alias c=clear
+    2  c
+    3  pwd
+    4  git clone https://github.com/insreed/PAI.git
+    5  git clone https://github.com/insreed/PAI.git
+    6  git clone [200~
+    7  git clone https://github.com/insreed/PAI.git
+    8  ls
+    9  cd PAI
+   10  ls
+   11  hisotry > plikhistoria
+   12  history > plikhistoria
