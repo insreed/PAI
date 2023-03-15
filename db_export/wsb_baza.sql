@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 15 Mar 2023, 09:37
+-- Czas generowania: 15 Mar 2023, 09:48
 -- Wersja serwera: 10.4.11-MariaDB
 -- Wersja PHP: 7.4.2
 
@@ -34,6 +34,15 @@ CREATE TABLE `cities` (
   `city` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Zrzut danych tabeli `cities`
+--
+
+INSERT INTO `cities` (`id`, `state_id`, `city`) VALUES
+(1, 1, 'Poznań'),
+(2, 2, 'Szczecin'),
+(3, 3, 'Katowice');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +53,15 @@ CREATE TABLE `states` (
   `id` int(10) UNSIGNED NOT NULL,
   `state` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `states`
+--
+
+INSERT INTO `states` (`id`, `state`) VALUES
+(1, 'Wielkopolskie'),
+(2, 'Zachodniopomorskie'),
+(3, 'Śląskie');
 
 -- --------------------------------------------------------
 
@@ -58,6 +76,15 @@ CREATE TABLE `users` (
   `lastName` varchar(50) NOT NULL,
   `birthday` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Zrzut danych tabeli `users`
+--
+
+INSERT INTO `users` (`id`, `city_id`, `firstName`, `lastName`, `birthday`) VALUES
+(4, 1, 'Edyta', 'Wąchocik', '1995-05-21'),
+(5, 3, 'Janusz', 'Trapczyk', '1970-01-23'),
+(6, 2, 'Maria', 'Cicha-woda', '1954-11-23');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -91,19 +118,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT dla tabeli `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `states`
 --
 ALTER TABLE `states`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ograniczenia dla zrzutów tabel
