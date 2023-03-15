@@ -6,4 +6,3 @@ echo <<< LIST
         <li>Września</li>
     </ul>
 LIST;
-?>
