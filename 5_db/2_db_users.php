@@ -13,6 +13,7 @@
     require_once "../scripts/connect.php";
     $sql = "SELECT `users`.id, `users`.`firstName`,`users`.`lastName`,`users`.`birthday`,`cities`.`city` as `miasto` ,`states`.`state` FROM `users` INNER JOIN `cities` ON `users`.`city_id` = `cities`.`id` INNER JOIN `states` ON `cities`.`state_id` = `states`.`id`";
     $result = $conn->query($sql);
+
     echo <<< TABLE
     <table>
     <tr>
@@ -24,11 +25,19 @@
     <th>Województwo</th>
     </tr>
     TABLE;
-
-    while($user = $result->fetch_assoc())
-    {
-        $rok = substr($user["birthday"], 0, 4);
+    if($result->num_rows == 0) {
         echo <<< TABLEUSERS
+<tr>
+<td colspan="6">Brak rekordów</td>
+</tr>
+TABLEUSERS;
+    }
+    else {
+
+        while ($user = $result->fetch_assoc())
+        {
+            $rok = substr($user["birthday"], 0, 4);
+            echo <<< TABLEUSERS
         <tr>
         <td>$user[firstName]</td>
         <td>$user[lastName]</td>
@@ -39,17 +48,23 @@
         <td><a href="../scripts/delete_users.php?deleteUserId=$user[id]">Usuń</a></td>
         </tr>
         TABLEUSERS;
+        }
     }
     echo "</table>";
-    if(isset($_GET["deleteUser"])) {
-        if ($_GET["deleteUser"] != 0) {
+    if(isset($_GET["deleteUser"]))
+    {
+        if ($_GET["deleteUser"] != 0)
+        {
             echo "Usunięto użytkownika o id = $_GET[deleteUser]";
-        } else {
+        } else
+        {
             echo "Nie udało się usunąć użytkownika";
         }
     }
+
     $conn ->close();
     ?>
+    <a href="../scripts/show_table.php">Wyświetl tabelę cities</a>;
 
 </body>
 </html>
