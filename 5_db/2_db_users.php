@@ -11,7 +11,7 @@
     <h4>Użytkownicy</h4>
     <?php
     require_once "../scripts/connect.php";
-    $sql = "SELECT `users`.`firstName`,`users`.`lastName`,`users`.`birthday`,`cities`.`city` as `miasto` ,`states`.`state` FROM `users` INNER JOIN `cities` ON `users`.`city_id` = `cities`.`id` INNER JOIN `states` ON `cities`.`state_id` = `states`.`id`";
+    $sql = "SELECT `users`.id, `users`.`firstName`,`users`.`lastName`,`users`.`birthday`,`cities`.`city` as `miasto` ,`states`.`state` FROM `users` INNER JOIN `cities` ON `users`.`city_id` = `cities`.`id` INNER JOIN `states` ON `cities`.`state_id` = `states`.`id`";
     $result = $conn->query($sql);
     echo <<< TABLE
     <table>
@@ -36,11 +36,20 @@
         <td>$rok</td>
         <td>$user[miasto]</td>
         <td>$user[state]</td>
+        <td><a href="../scripts/delete_users.php?deleteUserId=$user[id]">Usuń</a></td>
         </tr>
         TABLEUSERS;
     }
-
-    echo "</table>"
+    echo "</table>";
+    if(isset($_GET["deleteUser"])) {
+        if ($_GET["deleteUser"] != 0) {
+            echo "Usunięto użytkownika o id = $_GET[deleteUser]";
+        } else {
+            echo "Nie udało się usunąć użytkownika";
+        }
+    }
+    $conn ->close();
     ?>
+
 </body>
 </html>
