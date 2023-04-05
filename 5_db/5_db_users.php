@@ -93,6 +93,7 @@ echo "<option value=\"$city[id]\">$city[city]</option>";
         echo <<< ADDUSERFORM
 </select><br><br>
 <input type="submit" value="Dodaj użytkownika">
+<input type="checkbox" name="term">Regulamin
 </form>
 ADDUSERFORM;
     }
@@ -108,6 +109,7 @@ ADDUSERFORM;
         $sql = "SELECT * FROM users WHERE id=$_GET[updateUserId]";
         $result = $conn->query($sql);
         $updateUser = $result->fetch_assoc();
+        $_SESSION["updateUserId"]=$_GET["updateUserId"];
         //print_r($updateUser);
         echo <<< UPDATEUSERFORM
 <h4>Aktualizacja użytkownika</h4>

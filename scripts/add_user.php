@@ -8,7 +8,14 @@ foreach($_POST as $key => $value)
         //echo "$key<br>";
         $_SESSION["error"] = "Wypełnij wszystkie pola";
         echo "<script>history.back();</script>";
+        exit();
     }
+}
+
+if(!isset($_POST["term"]))
+{
+    $_SESSION["error"] = "Zatwierdź regulamin!";
+
 }
 
 require_once "./connect.php";
@@ -24,7 +31,6 @@ if($conn->affected_rows == 1){
 else{
     //echo"Nie dodano rekordu";
     $_SESSION["error"] = "Prawidłowo dodano rekord";
-    ;
 }
 
 header("location: /PAI/5_db/5_db_users.php");
