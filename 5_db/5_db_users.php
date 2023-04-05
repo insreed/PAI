@@ -54,6 +54,7 @@ TABLEUSERS;
         <td>$user[miasto]</td>
         <td>$user[state]</td>
         <td><a href="../scripts/delete_users.php?deleteUserId=$user[id]">Usuń</a></td>
+        <td><a href="./5_db_users.php?updateUserId=$user[id]">Aktualizacja użytkownika</a></td>
         </tr>
         TABLEUSERS;
         }
@@ -97,8 +98,50 @@ ADDUSERFORM;
     }
     else
     {
-        echo "<hr><a href=\"./2_db_users2.php?addUserForm=1\">Dodaj użytkownika</a>";
+        echo "<hr><a href=\"./5_db_users.php?addUserForm=1\">Dodaj użytkownika</a>";
     }
+
+    //aktualizacja użytkownika
+
+    if (isset($_GET["updateUserId"]))
+    {
+        $sql = "SELECT * FROM users WHERE id=$_GET[updateUserId]";
+        $result = $conn->query($sql);
+        $updateUser = $result->fetch_assoc();
+        //print_r($updateUser);
+        echo <<< UPDATEUSERFORM
+<h4>Aktualizacja użytkownika</h4>
+<form action="../scripts/update_user.php" method="post">
+<input type="text" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus><br><br>
+<input type="text" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]"><br><br>
+<input type="date" name="birthday" placeholder="Podaj datę urodzenia" value="$updateUser[birthday]"><br><br>
+<!-- <input type="text" name="city_id" placeholder="Podaj miasto"><br><br> -->
+<!--MIASTO -->
+<select name="city_id" >
+UPDATEUSERFORM;
+        $sql = "SELECT * FROM cities;";
+        $result = $conn->query($sql);
+        while($city = $result->fetch_assoc()){
+            if($city["id"] == $updateUser["city_id"])
+            {
+                echo "<option value=\"$city[id]\" selected>$city[city]</option>";
+            }
+            else
+            {
+                echo "<option value=\"$city[id]\">$city[city]</option>";
+            }
+        }
+        echo <<< UPDATEUSERFORM
+</select><br><br>
+<input type="submit" value="Aktualizacja użytkownika">
+</form>
+UPDATEUSERFORM;
+    }
+    else
+    {
+        echo "<br>";
+    }
+    $conn ->close();
     ?>
 </body>
 </html>
